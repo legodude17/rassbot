@@ -4,6 +4,8 @@ const commands = require("./commands");
 
 client.on('ready', () => {
     console.log('I am ready!');
+    client.user.setGame("music");
+    client.user.setStatus("online");
 });
 
 function isCommand(message) {
@@ -28,3 +30,11 @@ client.on('message', message => {
 });
 
 client.login(require("./config").token);
+
+process.on("exit", function () {
+    commands.leave.effect();
+    client.user.setGame("with upgrades");
+    client.user.setStatus("idle");
+    console.log("Done!");
+});
+process.on("SIGINT", process.exit.bind(process, 1));

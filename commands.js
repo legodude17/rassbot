@@ -86,7 +86,7 @@ const commands = module.exports = {
                 data.broadcast.end();
             }
             let url = message.content.split(' ').pop();
-            data.broadcast = data.voice.playStream(ytdl(url, {filter: "audioonly"}), {volume: 0.5});
+            data.broadcast = data.voice.playStream(ytdl(url, {filter: "audioonly"}), {volume: 0.25});
             return Promise.resolve("Playing");
         }
     },
@@ -96,5 +96,22 @@ const commands = module.exports = {
         effect(client, message) {
             return Promise.resolve(message.author.id);
         }
+    }/*,
+    eval: {
+        name: "Eval",
+        description: "Eval code (only owner can do this)",
+        effect(client, message) {
+            console.log(message.author.id);
+            if (message.author.id != 164188384942751744) {
+                return Promise.resolve("ERROR: You are not owner");
+            }
+            let js = message.content.split(' ');
+            js.unshift();
+            js = js.join(' ');
+            eval(js);
+        }
+    }*/,
+    setnick: {
+
     }
 };
