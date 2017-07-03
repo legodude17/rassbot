@@ -9,8 +9,6 @@ const debug = R.curry(function debug(head, data) {
     return data;
 });
 
-const URL = "https://r20---sn-o097znls.googlevideo.com/videoplayback?source=youtube&clen=3641461&expire=1496018758&itag=171&initcwndbps=1667500&keepalive=yes&key=yt6&ei=5RorWdGTOI6L-wP2ybnwDw&sparams=clen%2Cdur%2Cei%2Cgir%2Cid%2Cinitcwndbps%2Cip%2Cipbits%2Citag%2Ckeepalive%2Clmt%2Cmime%2Cmm%2Cmn%2Cms%2Cmv%2Cpl%2Crequiressl%2Csource%2Cexpire&mn=sn-o097znls&ip=73.231.103.152&mm=31&dur=206.064&id=o-AMEfEdJrU6jdYFFr4_u6HjeybdDoiyXcQzRHNS7-XY65&mime=audio%2Fwebm&requiressl=yes&ms=au&mv=m&pl=16&mt=1495997069&gir=yes&ipbits=0&lmt=1449565066607914&ratebypass=yes&signature=4C92AF30E7B932EEF2271ECADCD8D8A4F8404485.DC177C2D510849A24C2901374AEFB87DCAC33CEA";
-
 /*
 command: {
     name: String,
@@ -88,7 +86,7 @@ const commands = module.exports = {
                 data.broadcast.end();
             }
             let url = message.content.split(' ').pop();
-            data.broadcast = data.voice.playStream(ytdl(url, {filter: "audioonly"}));
+            data.broadcast = data.voice.playStream(ytdl(url, {filter: "audioonly"}), {volume: 0.5});
             return Promise.resolve("Playing");
         }
     },
