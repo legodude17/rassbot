@@ -1,0 +1,31 @@
+{
+  "name": "discordbot",
+  "version": "1.0.0",
+  "description": "A discord bot",
+  "main": "index.js",
+  "scripts": {
+    "test": "node test.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/legodude17/discordbot.git"
+  },
+  "keywords": [
+    "discord",
+    "bot",
+    "discordbot",
+    "fun"
+  ],
+  "author": "JDB",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/legodude17/discordbot/issues"
+  },
+  "homepage": "https://github.com/legodude17/discordbot#readme",
+  "dependencies": {
+    "discord.js": "^11.1.0",
+    "node-opus": "^0.2.6",
+    "ramda": "^0.24.0",
+    "ytdl-core": "^0.14.1"
+  }
+}
