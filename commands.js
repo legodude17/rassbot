@@ -96,7 +96,7 @@ const commands = module.exports = {
         effect(client, message) {
             return Promise.resolve(message.author.id);
         }
-    }/*,
+    },
     eval: {
         name: "Eval",
         description: "Eval code (only owner can do this)",
@@ -106,12 +106,19 @@ const commands = module.exports = {
                 return Promise.resolve("ERROR: You are not owner");
             }
             let js = message.content.split(' ');
-            js.unshift();
+            js.shift();
+            js.shift();
             js = js.join(' ');
             eval(js);
         }
-    }*/,
+    },
     setnick: {
-
+        name: "SetNick",
+        description: "Set the nickname of the bot",
+        effect(client, message) {
+            let nick = message.content.split(' ').pop();
+            return client.user.setUsername(nick)
+                .then(user => `My new username is ${user.username}`);
+        }
     }
 };
