@@ -1,40 +1,50 @@
 const Discord = require('discord.js');
-const client = new Discord.Client();
 const commands = require('./commands');
+const immutable = require('immutable');
+
+const client = new Discord.Client();
+
+const history = [new immutable.Map()];
 
 client.on('ready', () => {
-    console.log('I am ready!');
-    client.user.setGame('music');
-    client.user.setStatus('online');
+  client.user.setActivity('stuff and things');
+  client.user.setStatus('online');
 });
 
 function isCommand(message) {
-    return message.content.slice(0, 2) === '$ ' || message.isMentioned(client.user);
+  return message.content.slice(0, 2) === '$ ' || message.isMentioned(client.user);
 }
 
 function clean(str) {
-    console.log(str);
-    return str.replace('$ ', '').replace(/<@\d+>.? /, '').split(' ')[0];
+  return str.replace('$ ', '').replace(/<@\d+>.? /, '').split(' ')[0];
 }
 
 client.on('message', message => {
-    if (message.author.id === client.user.id) return;
-    if (!isCommand(message)) return;
-    let commandStr = clean(message.content);
-    let command = commands[commandStr];
-    if (command == undefined) {
-        return message.reply(`${commandStr} is not a valid command.`);
-    }
-    return command.effect(client, message)
-        .then(str => str ? message.reply(str) : str);
+  if (message.author.id === client.user.id) return;
+  if (!isCommand(message)) return;
+  const commandStr = clean(message.content);
+  const command = commands[commandStr];
+  if (command === undefined) {
+    message.reply(`ERORR: ${commandStr} is not a valid command.`);
+    return;
+  }
+  console.log(history[history.length - 1]);
+  command.effect(history[history.length - 1], client, message)
+    .then(([data, str]) => {
+      if (str) return message.reply(str).then(() => data);
+      return data;
+    })
+    .then(data => history.push(data))
+    .catch(e => message.reply(`ERROR: ${e.stack || e.message}`));
 });
 
 client.login(require('./config').token);
 
-process.on('exit', function () {
-    commands.leave.effect();
-    client.user.setGame('with upgrades');
-    client.user.setStatus('idle');
-    console.log('Done!');
+process.on('exit', () => {
+  commands.leave.effect(history[history.length - 1]);
+  client.user.setGame('with upgrades');
+  client.user.setStatus('idle');
+  process.stdout.write('Done!\n');
 });
+
 process.on('SIGINT', process.exit.bind(process, 1));

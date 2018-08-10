@@ -24,9 +24,23 @@
   },
   "homepage": "https://github.com/legodude17/discordbot#readme",
   "dependencies": {
-    "discord.js": "^11.1.0",
-    "node-opus": "^0.2.6",
+    "discord.js": "^11.3.2",
+    "erlpack": "github:discordapp/erlpack",
+    "immutable": "^3.8.2",
+    "libsodium-wrappers": "^0.7.3",
+    "node-opus": "^0.2.9",
+    "opusscript": "0.0.6",
     "ramda": "^0.24.0",
+    "sodium": "^2.0.3",
+    "uws": "^9.148.0",
     "ytdl-core": "^0.14.1"
+  },
+  "devDependencies": {
+    "bufferutil": "^3.0.4",
+    "eslint": "^4.19.1",
+    "eslint-config-airbnb": "^16.1.0",
+    "eslint-plugin-import": "^2.11.0",
+    "eslint-plugin-jsx-a11y": "^6.0.3",
+    "eslint-plugin-react": "^7.7.0"
   }
 }
